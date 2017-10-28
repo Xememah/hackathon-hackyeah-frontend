@@ -36,11 +36,15 @@ export default {
         zoom: 13,
         center: center
       })
+
       // Try HTML5 geolocation.
+      var self = this
       if (navigator.geolocation) {
+        this.$emit('in-progress-dialog', true)
+        console.log('geo emitted')
+
         map = this.map
         navigator.geolocation.getCurrentPosition(function(position) {
-          console.log('geolocation supported')
           var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -54,6 +58,9 @@ export default {
           
           map.panTo(pos);
           map.setZoom(15);
+          google.maps.event.addListenerOnce(map, 'idle', function(){
+              self.$emit('in-progress-dialog', false)
+          });
         }, function() {
           console.log('geolocation not supported 1')
           // handleLocationError(true, infoWindow, map.getCenter());
@@ -63,7 +70,6 @@ export default {
           // Browser doesn't support Geolocation
           // handleLocationError(false, infoWindow, map.getCenter());
       }
-      // this.changeTarget();
     }
   }
 }
