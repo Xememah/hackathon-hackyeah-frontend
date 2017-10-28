@@ -4,11 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import Map from './components/Map'
 import SideBar from './components/SideBar'
+import InProgressDialog from './components/InProgressDialog'
 import router from './router'
 
 Vue.config.productionTip = false
+
 Vue.component('interactive-map', Map)
 Vue.component('side-bar', SideBar)
+Vue.component('in-progress', InProgressDialog)
 
 /* eslint-disable no-new */
 new Vue({
