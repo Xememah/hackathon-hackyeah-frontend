@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="col-sm-6">
-        <h1>Join us!</h1>
+        <h1>Join FOODAWAY!</h1>
         <div class="row">
         
         </div>

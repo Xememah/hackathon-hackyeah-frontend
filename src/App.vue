@@ -14,7 +14,9 @@
     <main>
       <div>
         <transition name="fade">
-          <router-view></router-view>
+          <keep-alive>
+           <router-view></router-view>
+          </keep-alive>
         </transition>
       </div>
     </main>
