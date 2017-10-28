@@ -1,14 +1,13 @@
 export default class {
 
-	get(aUrl, aCallback) {
-	  var anHttpRequest = new XMLHttpRequest();
-	  anHttpRequest.onreadystatechange = function () {
-		if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-		  aCallback(anHttpRequest.responseText);
-	  }
-  
-	  anHttpRequest.open("GET", aUrl, true);
-	  anHttpRequest.send(null);
+	async get(url) {
+		return new Promise((resolve, reject) => {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", url, false);
+			xhr.onload = () => resolve(xhr.responseText);
+			xhr.onerror = () => reject(xhr.statusText);
+			xhr.send(null);
+		});
 	}
 
 }

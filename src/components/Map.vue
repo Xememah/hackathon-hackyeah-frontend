@@ -29,8 +29,6 @@ export default {
   mounted: function () {
     this.initMap()
     this.fetchOffers()
-    console.log(this.offers)
-    this.populateOffers()
   },
   methods: {
     initMap: function () {
@@ -77,44 +75,28 @@ export default {
     },
     fetchOffers: function () {
       var dataService = new DataService()
-      console.log(dataService.getOffers())
-      this.offers = dataService.getOffers()
+      this.offers = dataService.getOffers().then((s) => {
+        this.offers = JSON.parse(s)
+        console.log(this.offers)
+        this.populateOffers()
+      })
     },
     populateOffers: function () {
       console.log('populate init')
       for (let i in this.offers) {
-        console.log('populate markers')
         let item = this.offers[i];
         var tooltip;
         var map = this.map
         
-        let latLng = new google.maps.LatLng(item['cord_x'], item['cord_y']);
+        let latLng = new google.maps.LatLng(item['latitude'], item['longitude']);
 
-        let price = item['price'] + ' zł'
+        let price = ' zł'
         var color = "#222"
         var opacity = 0.3
         var scale = 7
-        var short_date = Number(item['submission_date'].substring(8, 10))
+        var short_date = Number(item['CreatedAt'].substring(8, 10))
 
-        console.log(item['submission_date'] + ' : ' + short_date)
-
-        if (item['favorite'] == 1) {
-          color = "#ffe791"
-          opacity = 1
-          scale = 9
-        } else if(short_date >= 23) {
-          color = "#c62929"
-          opacity = 1
-          scale = 7
-        } else if(item['category'] == 'olx-rooms') {
-          color = "#4286f4"
-          opacity = 1
-          scale = 6
-        } else if(item['category'] == 'gumtree-rooms') {
-          color = "#00874c"
-          opacity = 1
-          scale = 6
-        }
+        console.log(item['CreatedAt'] + ' : ' + short_date)
 
         let marker = new MarkerWithLabel({
           position: latLng,
