@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <header>
-      <div class="logo-banner"><span>{{ app_name }}</span></div>
-      <span>{{ account }}</span>
+      
+      <router-link :to="{ name: 'home' }" class="logo-banner">
+        <span>{{ app_name }}</span>
+      </router-link>
+
+      <router-link :to="{ name: 'account' }" class="account-banner" style="color: inherit">
+        <span>{{ account }}</span>
+      </router-link>
+
     </header>
     <main>
       <div>
@@ -19,8 +26,13 @@ export default {
   name: 'app',
   data () {
     return {
-      app_name: "NOT YET DECIDED",
+      app_name: "FOODAWAY",
       account: "Your account"
+    }
+  },
+  methods: {
+    accountModal: function () {
+      alert("done!")
     }
   }
 }
@@ -32,6 +44,10 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
@@ -78,4 +94,11 @@ header .logo-banner span {
   padding-right: 20px;
   font-weight: 700;
 } 
+header .account-banner {
+  cursor: pointer;  
+  transition: all 0.3s ease;
+}
+header .account-banner:hover {
+  background-color: #f3f3f3;
+}
 </style>

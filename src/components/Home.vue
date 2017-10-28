@@ -1,8 +1,10 @@
 <template>
   <div class="row no-margin">
     <in-progress message="Fetching your current location" :display="inp_display"></in-progress>
-    <side-bar class="col-md-3 col-sm-4 no-margin"></side-bar>
-    <interactive-map class="col-md col-sm no-margin" v-on:in-progress-dialog="dialogState"></interactive-map>
+    <transition name="fade">
+      <side-bar class="col-md-3 col-sm-4 col-xs no-margin" v-on:google-maps-resize="resizeMaps"></side-bar>
+    </transition>
+    <interactive-map class="col-md col-sm col-xs no-margin" v-on:in-progress-dialog="dialogState"></interactive-map>
   </div>
 </template>
 
@@ -18,6 +20,9 @@ export default {
     dialogState: function(data) {
       console.log(data)
       this.inp_display = data
+    },
+    resizeMaps: function() {
+      console.log('resizeMaps called')
     }
   }
 }

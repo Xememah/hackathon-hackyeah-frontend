@@ -18,6 +18,8 @@
 </style>
 
 <script>
+import DataService from '../service.js'
+
 export default {
   data() {
     return {
@@ -70,6 +72,9 @@ export default {
           // Browser doesn't support Geolocation
           // handleLocationError(false, infoWindow, map.getCenter());
       }
+    },
+    populateMarkers: function () {
+
     }
   }
 }

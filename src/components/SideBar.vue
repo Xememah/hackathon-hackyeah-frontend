@@ -1,13 +1,17 @@
 <template>
-  <transition name="fade">
-    <div class="side-bar" v-show="display">
-      <div class="action-hide" @click="display = false">Hide the sidebar</div>
+  <div class="side-bar" v-show="display">
+    <div class="action-hide" @click="toggleSidebar">
+      <img src="../assets/angle-double-line-white.svg" class="icon"/>Hide the sidebar
     </div>
-    <div class="side-bar-button" v-show="display == false">text</div>
-  </transition>
+  </div>
 </template>
 
 <style>
+.icon {
+  width: 13px;
+  height: 13px;
+  padding-right: 15px;
+}
 .side-bar {
   height: calc(100vh - 56px);
   width: 100%;
@@ -18,6 +22,7 @@
   background-color: #333;
   width: 50px;
   height: 50px;
+  position: fixed;
 }
 .action-hide {
   background-color: #222;
@@ -41,6 +46,14 @@ export default {
     }
   },
   data() {
+    return {}
+  },
+  methods: {
+    toggleSidebar: function () {
+      this.display = !this.display
+      this.$emit('google-maps-resize')
+      google.maps.event.trigger(map, "resize");
+    }
   }
 };
 </script>
