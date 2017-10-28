@@ -1,11 +1,15 @@
 <template>
   <div id="app">
     <header>
-      <span>Vue.js PWA</span>
+      <div class="logo-banner"><span>App name</span></div>
+      <span>Sign in / Sign up</span>
     </header>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <router-view></router-view>
+      <div>
+        <transition name="fade">
+          <router-view></router-view>
+        </transition>
+      </div>
     </main>
   </div>
 </template>
@@ -22,23 +26,19 @@ body {
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
 
-main {
-  text-align: center;
-  margin-top: 40px;
-}
-
 header {
-  margin: 0;
+  margin: 0 auto;
   height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
+  display: flex;
+  font-weight: 700;
+  background-color: #fff;
+  color: #333;
 }
 
 header span {
@@ -46,9 +46,22 @@ header span {
   position: relative;
   font-size: 20px;
   line-height: 1;
-  letter-spacing: .02em;
-  font-weight: 400;
+  letter-spacing: .05em;
+  font-weight: 700;
   box-sizing: border-box;
-  padding-top: 16px;
+  padding-top: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
+header .logo-banner {
+  font-family: 'Roboto', sans-serif;
+  background-color: #38dd0b;
+  color: #fff;
+  text-transform: uppercase;
+}
+header .logo-banner span {
+  letter-spacing: 0.2em;
+  padding-left: 20px;
+  padding-right: 20px;
+} 
 </style>
