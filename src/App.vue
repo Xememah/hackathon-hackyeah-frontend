@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <header>
-      <div class="logo-banner"><span>App name</span></div>
-      <span>Sign in / Sign up</span>
+      <div class="logo-banner"><span>{{ app_name }}</span></div>
+      <span>{{ account }}</span>
     </header>
     <main>
       <div>
@@ -16,11 +16,24 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      app_name: "NOT YET DECIDED",
+      account: "Your account"
+    }
+  }
 }
 </script>
 
 <style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
+
 body {
   margin: 0;
 }
@@ -47,7 +60,7 @@ header span {
   font-size: 20px;
   line-height: 1;
   letter-spacing: .05em;
-  font-weight: 700;
+  font-weight: 500;
   box-sizing: border-box;
   padding-top: 18px;
   padding-left: 20px;
@@ -60,8 +73,9 @@ header .logo-banner {
   text-transform: uppercase;
 }
 header .logo-banner span {
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   padding-left: 20px;
   padding-right: 20px;
+  font-weight: 700;
 } 
 </style>
