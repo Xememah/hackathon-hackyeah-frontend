@@ -26,11 +26,19 @@ import Info from './Info.vue'
 export default {
   data() {
     return {
-      offers: {}
+      offers: {},
+      tooltip: null,
+      markers: [],
     }
   },
   mounted: function () {
-    this.initMap()
+    var self = this;
+    this.$store.bus.$on('snap-to-and-open', function(e) {
+      self.snapToAndOpen(e)
+    })
+    this.$store.bus.$on('refresh-map', function(e) {
+      self.refreshMap(e)
+    })
     this.fetchOffers()
   },
   methods: {
@@ -45,7 +53,7 @@ export default {
       })
 
       var self = this
-      if (navigator.geolocation) {
+      if (false && navigator.geolocation) {
         this.$emit('in-progress-dialog', true)
         console.log('geo emitted')
 
@@ -82,11 +90,34 @@ export default {
     fetchOffers: function () {
       this.offers = this.$store.getOffers().then((s) => {
         this.offers = s
+        this.initMap()
         this.populateOffers()
       }).catch(e => console.log);
     },
+    snapToAndOpen: function(el) {
+      let marker = this.markers[el.ID]
+      this.map.panTo(marker.position)
+      let vu = new Vue({
+        extends: Info,
+        el: document.createElement('div'),
+        propsData: {item: el},
+      });
+      if (this.tooltip) {
+       this.tooltip.close();
+      }
+      this.tooltip = new google.maps.InfoWindow({
+        content: vu.$el.outerHTML
+      });
+      this.tooltip.open(this.map, marker);
+    },
+    refreshMap: function() {
+      let map = this.map;
+      window.setTimeout(function() {
+        google.maps.event.trigger(this.map, "resize");
+      }, 300)
+    },
     populateOffers: function () {
-      console.log('populate init')
+      console.log(this)
       for (let i in this.offers) {
         let item = this.offers[i]
         var tooltip;
@@ -117,6 +148,7 @@ export default {
             fillOpacity: opacity
           },
         });
+        this.markers[item.ID] = marker;
 
 
         google.maps.event.addListener(marker, 'click', function () {
@@ -126,13 +158,13 @@ export default {
             propsData: {item: item},
           });
           map.panTo(this.position);
-          if (tooltip) {
-            tooltip.close();
+          if (this.tooltip) {
+            this.tooltip.close();
           }
-          tooltip = new google.maps.InfoWindow({
+          this.tooltip = new google.maps.InfoWindow({
             content: vu.$el.outerHTML
           });
-          tooltip.open(map, this);
+          this.tooltip.open(map, this);
         })
       }
     }

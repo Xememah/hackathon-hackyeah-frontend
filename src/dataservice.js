@@ -1,10 +1,12 @@
 import HttpService from './httpservice.js'
 import router from './router'
+import Vue from 'vue'
 
 var API_PATH = 'https://hy.maciekmm.net/';
 var client = new HttpService();
 
 var store = {
+  bus: new Vue(),
   queue: {},
   data: {},
   fetching: {},
@@ -128,7 +130,7 @@ var store = {
         this.user.authenticated = false
       }
     },
-    
+
     getAuthHeader() {
       return {
         'Authorization': 'Bearer ' + localStorage.getItem('jwt_token')

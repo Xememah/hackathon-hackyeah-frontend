@@ -54,6 +54,7 @@ table * {
   background-color: #fff;
   margin: 10px;
   padding: 10px;
+  cursor: pointer;
   color: #333;
   font-weight: 500;
   font-size: 18px;
