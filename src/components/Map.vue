@@ -116,7 +116,7 @@ export default {
           map: this.map,
           clickable: true,
           title: item['title'],
-          labelContent: item['title'],
+          labelContent: item['picture'],
           labelClass: "markers-label",
           labelAnchor: new google.maps.Point(5, 5),
           icon: {
