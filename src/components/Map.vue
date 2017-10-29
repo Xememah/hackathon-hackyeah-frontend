@@ -158,6 +158,7 @@ export default {
             propsData: {item: item},
           });
           map.panTo(this.position);
+          map.setZoom(15);
           if (this.tooltip) {
             this.tooltip.close();
           }

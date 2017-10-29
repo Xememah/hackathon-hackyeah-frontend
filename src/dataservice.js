@@ -56,34 +56,64 @@ var store = {
       role: 0
     },
     login(context, creds, redirect) {
-      context.$http.post(API_PATH + 'login/', creds).then((data) => {
-          localStorage.setItem('jwt_token', data.body.token)
-          this.user.authenticated = true
+      console.log(creds)
+      client.post(API_PATH + 'accounts/login/', creds).then((data) => {
+        console.log(1)
+        console.log(data)
 
-          if (redirect) {
-            router.push({
-              name: redirect
-            })
-          }
-        },
-        (data) => {
-          context.error = data.err
-        })
+        if (redirect) {
+          router.push({
+            name: redirect
+          })
+        }
+      }, (data) => {
+        console.log(2)
+        console.log(data)
+      })
+
+      // context.$http.post(API_PATH + 'login/', creds).then((data) => {
+      //     localStorage.setItem('jwt_token', data.body.token)
+      //     this.user.authenticated = true
+
+      //     if (redirect) {
+      //       router.push({
+      //         name: redirect
+      //       })
+      //     }
+      //   },
+      //   (data) => {
+      //     context.error = data.err
+      //   })
     },
     register(context, creds, redirect) {
-      context.$http.post(API_PATH + 'register/', creds).then((data) => {
-          localStorage.setItem('jwt_token', data.body.token)
-          this.user.authenticated = true
-        
-          if (redirect) {
-            router.push({
-              name: redirect
-            })
-          }
-        },
-        (data) => {
-          context.error = data.err
-        })
+      client.post(API_PATH + 'accounts/register/', creds).then((data) => {
+        console.log(data)
+
+        localStorage.setItem('jwt_token', JSON.parse(data).token)
+        this.user.authenticated = true
+
+        if (redirect) {
+          router.push({
+            name: redirect
+          })
+        }
+      }, (data) => {
+        console.log(data)
+      })
+
+      // context.$http.post(API_PATH + 'register/', creds).then((data) => {
+      //     localStorage.setItem('jwt_token', data.body.token)
+      //     this.user.authenticated = true
+
+      //     if (redirect) {
+      //       router.push({
+      //         name: redirect
+      //       })
+      //     }
+      //   },
+      //   (data) => {
+      //     context.error = data.err
+      //   })
     },
     logout() {
       localStorage.removeItem('jwt_token')
@@ -104,7 +134,7 @@ var store = {
 
     refreshToken(context) {
       console.log(localStorage.getItem('jwt_token'))
-      context.$http.get(API_PATH+'token/', {
+      context.$http.get(API_PATH + 'token/', {
         headers: auth.getAuthHeader()
       }).then((data) => {
           localStorage.setItem('jwt_token', data.body.token)

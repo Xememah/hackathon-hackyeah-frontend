@@ -13,6 +13,7 @@ export default class {
 		return new Promise((resolve, reject) => {
 			var http = new XMLHttpRequest();
 			http.open("POST", url, true);
+			http.setRequestHeader('Content-type', 'application/json');
 			http.onload = () => resolve(http.responseText);
 			http.onerror = () => reject(http.statusText);
 			http.send(data);
