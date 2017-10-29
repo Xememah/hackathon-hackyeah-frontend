@@ -31,6 +31,7 @@ body {
 .modal {
   margin: 50px auto;
   max-width: 1000px;
+  text-align: center;
 }
 input[type=text], input[type=password] {
   background-color: #fff;

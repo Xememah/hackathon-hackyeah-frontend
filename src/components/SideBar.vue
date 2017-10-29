@@ -5,11 +5,29 @@
     </div>
 
     <div class="offers-header">Available food nearby</div>
-    <div class="offers-item" v-for="item in offers" :key="item.id">{{ item.title }}</div>
+    <div class="offers-item" v-for="item in offers" :key="item.id">
+      <div class="row">
+        <div class="col-xs-2" style="text-align: center; font-size: 24px;">{{ item.picture }}</div>
+        <div class="col-xs">{{ item.title }}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs offers-item-desc">{{ item.description }}<br/>Expires on {{ item.expiration | formatDate }}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-xs-12 offers-item-pickup">Pick this item up between {{ item.pickup_start | formatDate }} and {{ item.pickup_end | formatDate }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style>
+hr {
+  margin: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .icon {
   width: 13px;
   height: 13px;
@@ -44,13 +62,23 @@
   padding-bottom: 10px;
 }
 .offers-item {
-  background-color: #cfcfcf;
+  background-color: #fff;
   margin: 10px;
   padding: 10px;
   padding-top: 20px;
   padding-bottom: 20px;
   color: #333;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 18px;
+}
+.offers-item-desc {
+  font-size: 14px;
+  font-weight: 400;
+}
+.offers-item-pickup {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
 }
 </style>
 

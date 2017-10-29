@@ -13,6 +13,12 @@ Vue.component('interactive-map', Map)
 Vue.component('side-bar', SideBar)
 Vue.component('in-progress', InProgressDialog)
 
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return 'DATE'
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
