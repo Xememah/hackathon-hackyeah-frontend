@@ -51,6 +51,19 @@ var store = {
   getOffers() {
     return this.getResource('offers', API_PATH + 'offers/')
   },
+  newOffer(context, creds, redirect) {
+    // console.log(JSON.stringify(creds))
+    client.post(API_PATH + 'offers/', creds, this.auth.getAuthHeader()).then((data) => {
+      console.log(data)
+      if (redirect) {
+        router.push({
+          name: redirect
+        })
+      }
+    }, (data) => {
+      console.log(data)
+    })
+  },
   getUserOffers(id, token) {
     return this.getResource('userOffers', API_PATH+'offers/user/'+id+'/', token)
   },

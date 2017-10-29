@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import router from '../router'
 export default {
   data() {
     return {
@@ -26,8 +27,17 @@ export default {
         picture: "🍅",
         expiration: 1509601875,
         pickup_start: 1509246085,
+        longitude: 19.9449799,
+        latitude: 50.0646501,
         pickup_end: 1509560020
       }
+    }
+  },
+  activated() {
+    if(!this.$store.auth.getUser()) {
+      router.push({
+        name: 'account'
+      })
     }
   },
   mounted() {
