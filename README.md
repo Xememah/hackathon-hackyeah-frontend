@@ -1,6 +1,4 @@
-# y
-
-> tbd
+# HackYeah Hackathon
 
 ## Build Setup
 
