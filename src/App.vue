@@ -41,6 +41,9 @@ export default {
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .2s
 }

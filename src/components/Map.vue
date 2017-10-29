@@ -12,13 +12,29 @@
 }
 .markers-label {
   font-size: 20px;
-  padding-left: -5px;
-  font-weight: 701;
+  background: #fff;
+  border-radius: 100px;
+  padding: 4px;
+}
+.tooltip-picture {
+  font-size: 60pt;
+  text-align: left;
+  vertical-align: middle;
+}
+table td {
+  padding: 5px;
+  vertical-align: top;
+}
+table * {
+  margin: 0;
+  padding: 0;
 }
 </style>
 
 <script>
+import Vue from 'vue'
 import DataService from '../dataservice.js'
+import Info from './Info.vue'
 
 export default {
   data() {
@@ -77,7 +93,6 @@ export default {
       var dataService = new DataService()
       this.offers = dataService.getOffers().then((s) => {
         this.offers = JSON.parse(s)
-        console.log(this.offers)
         this.populateOffers()
       }).catch(e => console.log);
     },
@@ -95,8 +110,6 @@ export default {
         var opacity = 0.3
         var scale = 7
         var short_date = Number(item['CreatedAt'].substring(8, 10))
-
-        console.log(item['CreatedAt'] + ' : ' + short_date)
 
         let marker = new MarkerWithLabel({
           position: latLng,
@@ -116,13 +129,19 @@ export default {
           },
         });
 
+
         google.maps.event.addListener(marker, 'click', function () {
+          let vu = new Vue({
+            extends: Info,
+            el: document.createElement('div'),
+            data: item,
+          });
           map.panTo(this.position);
           if (tooltip) {
             tooltip.close();
           }
           tooltip = new google.maps.InfoWindow({
-            content: '<table><tr><td colspan="2"><strong>'+ item['title'] + ' <a href="' + item['link'] + '" target="_blank">(Ogłoszenie)</a></strong></td></tr><tr><td><img src="' + item['thumbnail'] + '"/>' + item['submission_date'] + '</td><td>' + item['short_desc'] + '<br/><hr/><a href="#/s/' + item['hash'] + '" class="btn blue" style="width: 100%" target="_blank">Więcej na Wroflats</a></tr></table>'
+            content: vu.$el.outerHTML
           });
           tooltip.open(map, this);
         })
