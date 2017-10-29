@@ -8,6 +8,7 @@ import SideBarClosed from './components/SideBarClosed'
 import InProgressDialog from './components/InProgressDialog'
 import router from './router'
 import Info from './components/Info'
+import Store from './dataservice.js'
 
 Vue.config.productionTip = false
 
@@ -27,6 +28,8 @@ Vue.filter('formatDate', function (value) {
     return pad(d.getDate())+'.'+pad(d.getMonth())+'.'+d.getFullYear()+' '+pad(d.getHours()) +':'+pad(d.getMinutes())
   }
 })
+
+Vue.use(Store)
 
 /* eslint-disable no-new */
 new Vue({

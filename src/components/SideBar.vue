@@ -67,11 +67,8 @@ export default {
   },
   methods: {
     fetchOffers: function () {
-      var dataService = new DataService()
-      this.offers = dataService.getOffers().then((s) => {
-        this.offers = JSON.parse(s)
-        console.log(this.offers)
-        this.populateOffers()
+      this.offers = this.$store.getOffers().then((s) => {
+        this.offers = s
       })
     },
     toggleSidebar: function () {

@@ -1,15 +1,19 @@
 <template>
   <div id="app">
     <header>
-      
-      <router-link :to="{ name: 'home' }" class="logo-banner">
-        <span>{{ app_name }}</span>
-      </router-link>
-
-      <router-link :to="{ name: 'account' }" class="account-banner" style="color: inherit">
-        <span>{{ account }}</span>
-      </router-link>
-
+      <div> 
+        <router-link :to="{ name: 'home' }" class="logo-banner">
+          <span>{{ app_name }}</span>
+        </router-link>
+        <router-link :to="{ name: 'account' }" class="account-banner">
+          <span>{{ account }}</span>
+        </router-link>
+      </div>
+      <div class="header-login-menu">
+        <router-link class="account-banner" :to="{ name: 'post-offer'}">
+          <span>{{ post_offer }}</span>
+        </router-link>
+      </div>
     </header>
     <main>
       <div>
@@ -29,7 +33,8 @@ export default {
   data () {
     return {
       app_name: "FOODAWAY",
-      account: "Your account"
+      account: "Your account",
+      post_offer: "+ New Offer",
     }
   },
   methods: {
@@ -41,6 +46,17 @@ export default {
 </script>
 
 <style>
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items:flex-start;
+}
+
+header a, header div {
+  display: inline-block;
+  height: 100%;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .2s
 }
@@ -50,6 +66,7 @@ export default {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 body {

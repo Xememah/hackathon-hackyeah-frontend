@@ -80,16 +80,15 @@ export default {
       }
     },
     fetchOffers: function () {
-      var dataService = new DataService()
-      this.offers = dataService.getOffers().then((s) => {
-        this.offers = JSON.parse(s)
+      this.offers = this.$store.getOffers().then((s) => {
+        this.offers = s
         this.populateOffers()
       }).catch(e => console.log);
     },
     populateOffers: function () {
       console.log('populate init')
       for (let i in this.offers) {
-        let item = this.offers[i];
+        let item = this.offers[i]
         var tooltip;
         var map = this.map
         
