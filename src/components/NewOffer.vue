@@ -1,14 +1,14 @@
 <template>
   <div class="modal">
     <div class="row">
-      <div class="col-sm-12 col-md-12">
-        <form @submit="newOffer">
+      <div class="col-sm-12 col-md-12 col-xs-12">
+        <form @submit.prevent.stop="newOffer">
           <h1>Add a new offer</h1>
           <input type="text" v-model="form.title" placeholder="ITEM NAME / TITLE"/>
           <input type="text" v-model="form.description" placeholder="DESCRIPTION: QUANTITY AND MORE"/>
           <input type="text" v-model="form.location" placeholder="PICKUP ADDRESS"/>
           <div class="emoji-selector">Your item's picture: <select v-model="form.picture" id="emojipicture"/></select></div>
-          <button class="login" @click="newOffer">Add a new offer</button>
+          <button type="submit" class="login">Add a new offer</button>
         </form>
       </div>
     </div>

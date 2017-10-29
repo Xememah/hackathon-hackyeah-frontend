@@ -54,7 +54,8 @@ var store = {
   newOffer(context, creds, redirect) {
     // console.log(JSON.stringify(creds))
     client.post(API_PATH + 'offers/', creds, this.auth.getAuthHeader()).then((data) => {
-      console.log(data)
+      this.data['offers'] = undefined;
+      this.data['userOffers'] = undefined;
       if (redirect) {
         router.push({
           name: redirect

@@ -1,7 +1,7 @@
 <template>
 	<div class="modal">
     <div class="row">
-      <div class="col-sm-6 col-md-6">
+      <div class="col-sm-6 col-md-6 col-xs-12">
         <form @submit.prevent.stop="login">
           <h1>Hey, welcome back!</h1>
           <input type="text" v-model="login_credentials.email" placeholder="E-MAIL"/>
@@ -9,7 +9,7 @@
           <button class="login">Log in</button>
         </form>
       </div>
-      <div class="col-sm-6 col-md-6">
+      <div class="col-sm-6 col-md-6 col-xs-12">
         <form @submit.prevent.stop="register">
           <h1>Join <span class="accent">FOODAWAY</span>!</h1>
           <input type="text" v-model="register_credentials.email" placeholder="E-MAIL"/>

@@ -50,7 +50,7 @@ export default {
     fetchOffers: function () {
         let user = this.$store.auth.getUser()
         var self = this
-        this.$store.getUserOffers(0, this.$store.auth.getAuthHeader()).then((s) => {
+        this.$store.getUserOffers(user.ID, this.$store.auth.getAuthHeader()).then((s) => {
           self.offers = s
         })
     },
