@@ -10,7 +10,7 @@
         </router-link>
       </div>
       <div class="header-login-menu">
-        <router-link class="account-banner" :to="{ name: 'post-offer'}">
+        <router-link class="account-banner" :to="{ name: 'offers-new'}">
           <span>{{ post_offer }}</span>
         </router-link>
       </div>
@@ -34,7 +34,7 @@ export default {
     return {
       app_name: "FOODAWAY",
       account: "Your account",
-      post_offer: "+ New Offer",
+      post_offer: "+ New offer",
     }
   },
   methods: {
@@ -71,6 +71,7 @@ a {
 
 body {
   margin: 0;
+  background-color: #f0f0f0;  
 }
 
 #app {
@@ -119,5 +120,46 @@ header .account-banner {
 }
 header .account-banner:hover {
   background-color: #f3f3f3;
+}
+.modal {
+  margin: 50px auto;
+  max-width: 1000px;
+  text-align: center;
+}
+input[type=text], input[type=password] {
+  background-color: #fff;
+  border: 1px solid #fcfcfc;
+  padding: 15px;
+  margin-top: 15px;
+  margin-bottom: 15x;
+  width: 70%;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+button {
+  cursor: pointer;
+  width: 70%;
+  background-color: #38dd0b;
+  padding: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: none;
+  box-sizing: border-box;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+}
+button:hover {
+  background-color: #2ba80a;
+}
+button.login {
+  background-color: #777;
+}
+button.login:hover {
+  background-color: #666;
+}
+.accent {
+  color: #38dd0b;
 }
 </style>
