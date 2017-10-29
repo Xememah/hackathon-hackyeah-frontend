@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Account from '@/components/Account'
 import NewOffer from '@/components/NewOffer'
+import Profile from '@/components/authed/Profile'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/offers',
       name: 'offers',
       component: Home
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     }
   ]
 })
