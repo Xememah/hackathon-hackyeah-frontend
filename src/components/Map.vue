@@ -16,19 +16,6 @@
   border-radius: 100px;
   padding: 4px;
 }
-.tooltip-picture {
-  font-size: 60pt;
-  text-align: left;
-  vertical-align: middle;
-}
-table td {
-  padding: 5px;
-  vertical-align: top;
-}
-table * {
-  margin: 0;
-  padding: 0;
-}
 </style>
 
 <script>
@@ -134,7 +121,7 @@ export default {
           let vu = new Vue({
             extends: Info,
             el: document.createElement('div'),
-            data: item,
+            propsData: {item: item},
           });
           map.panTo(this.position);
           if (tooltip) {

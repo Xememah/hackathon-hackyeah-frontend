@@ -5,6 +5,7 @@
     </div>
 
     <div class="offers-header">Available food nearby</div>
+    <info v-for="item in offers" :key="item.id" :item="item"></info>
     <div class="offers-item" v-for="item in offers" :key="item.id">
       <div class="row">
         <div class="col-xs-2" style="text-align: center; font-size: 24px;">{{ item.picture }}</div>
@@ -61,29 +62,11 @@ hr {
   padding: 20px;
   padding-bottom: 10px;
 }
-.offers-item {
-  background-color: #fff;
-  margin: 10px;
-  padding: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: #333;
-  font-weight: 500;
-  font-size: 18px;
-}
-.offers-item-desc {
-  font-size: 14px;
-  font-weight: 400;
-}
-.offers-item-pickup {
-  text-align: center;
-  font-size: 14px;
-  font-weight: 400;
-}
 </style>
 
 <script>
 import DataService from '../dataservice.js'
+import Info from './Info.vue'
 
 export default {
   props: {

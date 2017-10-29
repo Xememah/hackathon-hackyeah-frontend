@@ -6,16 +6,23 @@ import Map from './components/Map'
 import SideBar from './components/SideBar'
 import InProgressDialog from './components/InProgressDialog'
 import router from './router'
+import Info from './components/Info'
 
 Vue.config.productionTip = false
 
 Vue.component('interactive-map', Map)
 Vue.component('side-bar', SideBar)
 Vue.component('in-progress', InProgressDialog)
+Vue.component('info', Info)
 
-Vue.filter('formatDate', function(value) {
+Vue.filter('formatDate', function (value) {
+  function pad(n) {
+      return (n < 10) ? ("0" + n) : n;
+  }
+
   if (value) {
-    return 'DATE'
+    let d = new Date(value * 1000)
+    return pad(d.getDate())+'.'+pad(d.getMonth())+'.'+d.getFullYear()+' '+pad(d.getHours()) +':'+pad(d.getMinutes())
   }
 })
 
