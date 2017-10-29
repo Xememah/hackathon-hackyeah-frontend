@@ -11,9 +11,9 @@
   background-color: #cc555555;
 }
 .markers-label {
-  font-size: 10px;
-  padding-left: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  padding-left: -5px;
+  font-weight: 701;
 }
 </style>
 
@@ -79,7 +79,7 @@ export default {
         this.offers = JSON.parse(s)
         console.log(this.offers)
         this.populateOffers()
-      })
+      }).catch(e => console.log);
     },
     populateOffers: function () {
       console.log('populate init')
@@ -90,7 +90,7 @@ export default {
         
         let latLng = new google.maps.LatLng(item['latitude'], item['longitude']);
 
-        let price = ' zł'
+        let price = item['picture']
         var color = "#222"
         var opacity = 0.3
         var scale = 7
@@ -107,7 +107,7 @@ export default {
           labelClass: "markers-label",
           labelAnchor: new google.maps.Point(5, 5),
           icon: {
-            path: google.maps.SymbolPath.CIRCLE,
+            path: '',
             scale: scale,
             strokeWeight: 4,
             strokeColor: "#fff",
