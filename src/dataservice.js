@@ -1,6 +1,7 @@
 import HttpService from './httpservice.js'
 import router from './router'
 import Vue from 'vue'
+var jwt_decode = require('jwt-decode')
 
 var API_PATH = 'https://hy.maciekmm.net/';
 var client = new HttpService();
@@ -11,7 +12,7 @@ var store = {
   data: {},
   fetching: {},
 
-  getResource(key, endpoint) {
+  getResource(key, endpoint, token) {
     return new Promise((resolve, reject) => {
       if (this.fetching[key]) {
         if (!this.queue[key]) {
@@ -26,7 +27,7 @@ var store = {
 
       if (!this.data[key]) {
         this.fetching[key] = true
-        client.get(endpoint).then((v) => {
+        client.get(endpoint, token).then((v) => {
           this.data[key] = JSON.parse(v)
           this.fetching[key] = false
           resolve(this.data[key])
@@ -50,47 +51,26 @@ var store = {
   getOffers() {
     return this.getResource('offers', API_PATH + 'offers/')
   },
+  getUserOffers(id, token) {
+    return this.getResource('userOffers', API_PATH+'offers/user/'+id+'/', token)
+  },
   auth: {
-    user: {
-      authenticated: false,
-      role: 0
-    },
     login(context, creds, redirect) {
-      console.log(creds)
       client.post(API_PATH + 'accounts/login/', creds).then((data) => {
-        console.log(1)
-        console.log(data)
+        localStorage.setItem('jwt_token', JSON.parse(data).token)
 
         if (redirect) {
           router.push({
             name: redirect
           })
         }
-      }, (data) => {
-        console.log(2)
-        console.log(data)
+      }, (fail) => {
+        console.log(fail)
       })
-
-      // context.$http.post(API_PATH + 'login/', creds).then((data) => {
-      //     localStorage.setItem('jwt_token', data.body.token)
-      //     this.user.authenticated = true
-
-      //     if (redirect) {
-      //       router.push({
-      //         name: redirect
-      //       })
-      //     }
-      //   },
-      //   (data) => {
-      //     context.error = data.err
-      //   })
     },
     register(context, creds, redirect) {
       client.post(API_PATH + 'accounts/register/', creds).then((data) => {
-        console.log(data)
-
         localStorage.setItem('jwt_token', JSON.parse(data).token)
-        this.user.authenticated = true
 
         if (redirect) {
           router.push({
@@ -100,38 +80,10 @@ var store = {
       }, (data) => {
         console.log(data)
       })
-
-      // context.$http.post(API_PATH + 'register/', creds).then((data) => {
-      //     localStorage.setItem('jwt_token', data.body.token)
-      //     this.user.authenticated = true
-
-      //     if (redirect) {
-      //       router.push({
-      //         name: redirect
-      //       })
-      //     }
-      //   },
-      //   (data) => {
-      //     context.error = data.err
-      //   })
     },
     logout() {
       localStorage.removeItem('jwt_token')
-      this.user.authenticated = false
     },
-
-    ifAdmin() {
-      var jwt = localStorage.getItem('jwt_token')
-      var decode = jwt_decode(jwt)
-      var user = decode.User
-
-      console.log(decode)
-
-      if (user.role == 1) {
-        return true
-      } else return false
-    },
-
     refreshToken(context) {
       console.log(localStorage.getItem('jwt_token'))
       context.$http.get(API_PATH + 'token/', {
@@ -145,27 +97,15 @@ var store = {
           console.log(data)
         })
     },
-
-    role() {
-      var jwt = localStorage.getItem('jwt_token')
-      var decode = jwt_decode(jwt)
-      var user = decode.User
-      return user.role;
-    },
-
-    checkAuth() {
-      var jwt = localStorage.getItem('jwt_token')
-      if (jwt) {
-        this.user.authenticated = true
-      } else {
-        this.user.authenticated = false
+    getUser() {
+      let jwt = localStorage.getItem("jwt_token");
+      if(jwt) {
+        return jwt_decode(jwt).User
       }
+      return null
     },
-
     getAuthHeader() {
-      return {
-        'Authorization': 'Bearer ' + localStorage.getItem('jwt_token')
-      }
+      return 'Bearer ' + localStorage.getItem('jwt_token')
     }
   }
 }
