@@ -53,7 +53,6 @@ hr {
 </style>
 
 <script>
-import DataService from '../dataservice.js'
 import Info from './Info.vue'
 
 export default {

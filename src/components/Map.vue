@@ -117,10 +117,9 @@ export default {
       }, 300)
     },
     populateOffers: function () {
-      console.log(this)
+      var self = this;
       for (let i in this.offers) {
         let item = this.offers[i]
-        var tooltip;
         var map = this.map
         
         let latLng = new google.maps.LatLng(item['latitude'], item['longitude']);
@@ -159,13 +158,13 @@ export default {
           });
           map.panTo(this.position);
           map.setZoom(15);
-          if (this.tooltip) {
-            this.tooltip.close();
+          if (self.tooltip) {
+            self.tooltip.close();
           }
-          this.tooltip = new google.maps.InfoWindow({
+          self.tooltip = new google.maps.InfoWindow({
             content: vu.$el.outerHTML
           });
-          this.tooltip.open(map, this);
+          self.tooltip.open(map, this);
         })
       }
     }

@@ -6,8 +6,9 @@
           <span>{{ app_name }}</span>
         </router-link>
         <router-link :to="{ name: 'account' }" class="account-banner">
-          <span>{{ account }}</span>
+          <span>{{ user().name }}</span>
         </router-link>
+        <a class="account-banner" href="#/logout" @click.prevent="logout" v-if="user().ID"><span>Logout</span></a>
       </div>
       <div class="header-login-menu">
         <router-link class="account-banner" :to="{ name: 'offers-new'}">
@@ -40,6 +41,16 @@ export default {
   methods: {
     accountModal: function () {
       alert("done!")
+    },
+    user: function() {
+      let us = this.$store.auth.getUser()
+      if(us) {
+        return us;
+      }
+      return {name: "Sign in"};
+    },
+    logout: function() {
+      this.$store.auth.logout()
     }
   }
 }

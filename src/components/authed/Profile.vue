@@ -1,8 +1,12 @@
 <template>
-    <div>
-        <section>
-            <h1>Profile</h1>
-
+    <div class="profile-view">
+        <section class="view">
+            <div>
+                <div> 
+                    <img src="/static/img/avatar.png" class="avatar">
+                    <p>{{ user.name }} ({{ user.email }})</p>
+                </div>
+            </div>
         </section>
         <section>
             <h1>Your Offers</h1>
@@ -12,6 +16,18 @@
         </section>
     </div>
 </template>
+<style>
+.avatar {
+    border-radius: 100px;
+}
+.profile-view {
+    text-align: center;
+    margin-top: 20px;
+}
+.profile-view div {
+    display: inline-block;
+}
+</style>
 <script>
 import Info from '../Info.vue'
 
@@ -21,6 +37,11 @@ export default {
     return {
       offers: []
     }
+  },
+  computed: {
+      user: function(){
+          return this.$store.auth.getUser()
+      }
   },
   mounted: function () {
     this.fetchOffers()
