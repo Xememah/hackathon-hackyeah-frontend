@@ -40,7 +40,8 @@ export default {
       this.map = new google.maps.Map(document.getElementById('map'), {
         gestureHandling: "greedy",
         zoom: 13,
-        center: center
+        center: center,
+        mapTypeControl: false
       })
 
       var self = this
@@ -68,10 +69,12 @@ export default {
           });
         }, function() {
           console.log('geolocation is not supported 1')
+          self.$emit('in-progress-dialog', false)
           // handleLocationError(true, infoWindow, map.getCenter());
         });
       } else {
           console.log('geolocation is not supported 2')
+          self.$emit('in-progress-dialog', false)
           // Browser doesn't support Geolocation
           // handleLocationError(false, infoWindow, map.getCenter());
       }

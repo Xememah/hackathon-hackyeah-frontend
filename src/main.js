@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import Map from './components/Map'
 import SideBar from './components/SideBar'
+import SideBarClosed from './components/SideBarClosed'
 import InProgressDialog from './components/InProgressDialog'
 import router from './router'
 import Info from './components/Info'
@@ -12,6 +13,7 @@ Vue.config.productionTip = false
 
 Vue.component('interactive-map', Map)
 Vue.component('side-bar', SideBar)
+Vue.component('bar-icon', SideBarClosed)
 Vue.component('in-progress', InProgressDialog)
 Vue.component('info', Info)
 

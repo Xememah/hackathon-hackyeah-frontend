@@ -1,26 +1,14 @@
 <template>
-  <div class="side-bar" v-show="display">
-    <div class="action-hide" @click="toggleSidebar">
-      <img src="../assets/angle-double-line-white.svg" class="icon"/>Hide the sidebar
-    </div>
+  <transition name="fade">
+    <div class="side-bar">
+      <div class="action-hide" @click="toggleSidebar">
+        <img src="../assets/angle-double-line-white.svg" class="icon"/>Hide the sidebar
+      </div>
 
-    <div class="offers-header">Available food nearby</div>
-    <info v-for="item in offers" :key="item.id" :item="item"></info>
-    <div class="offers-item" v-for="item in offers" :key="item.id">
-      <div class="row">
-        <div class="col-xs-2" style="text-align: center; font-size: 24px;">{{ item.picture }}</div>
-        <div class="col-xs">{{ item.title }}</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-2"></div>
-        <div class="col-xs offers-item-desc">{{ item.description }}<br/>Expires on {{ item.expiration | formatDate }}</div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-xs-12 offers-item-pickup">Pick this item up between {{ item.pickup_start | formatDate }} and {{ item.pickup_end | formatDate }}</div>
-      </div>
+      <div class="offers-header">Available food nearby</div>
+      <info v-for="item in offers" :key="item.id" :item="item"></info>
     </div>
-  </div>
+  </transition>
 </template>
 
 <style>
@@ -69,12 +57,6 @@ import DataService from '../dataservice.js'
 import Info from './Info.vue'
 
 export default {
-  props: {
-    display: {
-      default: true,
-      type: Boolean
-    }
-  },
   data() {
     return {
       offers: {}
@@ -93,9 +75,7 @@ export default {
       })
     },
     toggleSidebar: function () {
-      this.display = !this.display
-      this.$emit('google-maps-resize')
-      google.maps.event.trigger(map, "resize");
+      this.$emit('sidebar-close')
     }
   }
 };
