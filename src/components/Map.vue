@@ -90,7 +90,6 @@ export default {
         
         let latLng = new google.maps.LatLng(item['latitude'], item['longitude']);
 
-        let price = ' zł'
         var color = "#222"
         var opacity = 0.3
         var scale = 7
@@ -103,7 +102,7 @@ export default {
           map: this.map,
           clickable: true,
           title: item['title'],
-          labelContent: price,
+          labelContent: item['title'],
           labelClass: "markers-label",
           labelAnchor: new google.maps.Point(5, 5),
           icon: {

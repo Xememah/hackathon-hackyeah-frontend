@@ -3,6 +3,9 @@
     <div class="action-hide" @click="toggleSidebar">
       <img src="../assets/angle-double-line-white.svg" class="icon"/>Hide the sidebar
     </div>
+
+    <div class="offers-header">Available food nearby</div>
+    <div class="offers-item" v-for="item in offers" :key="item.id">{{ item.title }}</div>
   </div>
 </template>
 
@@ -17,6 +20,7 @@
   width: 100%;
   background-color: #333;
   color: #f5f5f5;
+  overflow-y: auto;
 }
 .side-bar-button {
   background-color: #333;
@@ -35,9 +39,24 @@
   background-color: #3f3f3f;
   color: #fff;
 }
+.offers-header {
+  padding: 20px;
+  padding-bottom: 10px;
+}
+.offers-item {
+  background-color: #cfcfcf;
+  margin: 10px;
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+}
 </style>
 
 <script>
+import DataService from '../dataservice.js'
+
 export default {
   props: {
     display: {
@@ -46,9 +65,22 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      offers: {}
+    }
+  },
+  mounted: function () {
+    this.fetchOffers()
   },
   methods: {
+    fetchOffers: function () {
+      var dataService = new DataService()
+      this.offers = dataService.getOffers().then((s) => {
+        this.offers = JSON.parse(s)
+        console.log(this.offers)
+        this.populateOffers()
+      })
+    },
     toggleSidebar: function () {
       this.display = !this.display
       this.$emit('google-maps-resize')
