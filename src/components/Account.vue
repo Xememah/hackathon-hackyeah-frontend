@@ -2,20 +2,20 @@
 	<div class="modal">
     <div class="row">
       <div class="col-sm-6 col-md-6">
-        <form @submit="login">
+        <form @submit.prevent.stop="login">
           <h1>Hey, welcome back!</h1>
           <input type="text" v-model="login_credentials.email" placeholder="E-MAIL"/>
           <input type="password" v-model="login_credentials.password" placeholder="PASSWORD"/>
-          <button class="login" @click="login">Log in</button>
+          <button class="login">Log in</button>
         </form>
       </div>
       <div class="col-sm-6 col-md-6">
-        <form @submit="register">
+        <form @submit.prevent.stop="register">
           <h1>Join <span class="accent">FOODAWAY</span>!</h1>
           <input type="text" v-model="register_credentials.email" placeholder="E-MAIL"/>
           <input type="text" v-model="register_credentials.name" placeholder="NAME"/>
           <input type="password" v-model="register_credentials.password" placeholder="PASSWORD"/>
-          <button @click="register">Register</button>
+          <button>Register</button>
         </form>
       </div>
     </div>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import router from '../router'
+
 export default {
   data() {
     return {
@@ -35,6 +37,13 @@ export default {
         name: "",
         password: ""
       }
+    }
+  },
+  activated() {
+    if(this.$store.auth.getUser()) {
+      router.push({
+        name: 'profile'
+      })
     }
   },
   methods: {

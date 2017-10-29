@@ -83,6 +83,13 @@ var store = {
     },
     logout() {
       localStorage.removeItem('jwt_token')
+      router.push({
+        name: 'home',
+        query: {
+          t: + new Date()
+        }
+      })
+      this.$vm.force
     },
     refreshToken(context) {
       console.log(localStorage.getItem('jwt_token'))
