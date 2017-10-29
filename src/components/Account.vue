@@ -5,7 +5,7 @@
         <h1>Hey, welcome back!</h1>
         <input type="text" placeholder="E-MAIL"/>
         <input type="password" placeholder="PASSWORD"/>
-        <button class="login">Log in</button>
+        <button class="login" @click="login">Log in</button>
       </div>
       <div class="col-sm-6 col-md-6">
         <h1>Join <span class="accent">FOODAWAY</span>!</h1>
@@ -20,7 +20,27 @@
 
 <script>
 export default {
-  
+  data() {
+    return {
+      login_credentials: {
+        email: "",
+        password: ""
+      },
+      register_credentials: {
+        email: "",
+        name: "",
+        password: ""
+      }
+    }
+  },
+  methods: {
+    register: function () {
+      this.$store.auth.login(this, this.register_credentials, 'home')
+    },
+    login: function() {
+      this.$store.auth.login(this, this.login_credentials, 'home')
+    }
+  }
 }
 </script>
 

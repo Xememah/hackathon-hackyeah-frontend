@@ -68,10 +68,11 @@ var store = {
           context.error = data.err
         })
     },
-    signup(context, creds, redirect) {
-      context.$http.post(API_PATH + 'register/', creds.then((data) => {
+    register(context, creds, redirect) {
+      context.$http.post(API_PATH + 'register/', creds).then((data) => {
           localStorage.setItem('jwt_token', data.body.token)
           this.user.authenticated = true
+        
           if (redirect) {
             router.push({
               name: redirect
@@ -80,7 +81,7 @@ var store = {
         },
         (data) => {
           context.error = data.err
-        }))
+        })
     },
     logout() {
       localStorage.removeItem('jwt_token')
