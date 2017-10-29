@@ -6,7 +6,7 @@
       </div>
 
       <div class="offers-header">Available food nearby</div>
-      <info v-for="item in offers" :key="item.id" :item="item"></info>
+      <info v-for="item in offers" :key="item.id" :item="item" data-id="item.id" @click.native="snapToOffer(item)"></info>
     </div>
   </transition>
 </template>
@@ -73,6 +73,9 @@ export default {
     },
     toggleSidebar: function () {
       this.$emit('sidebar-close')
+    },
+    snapToOffer: function(el) {
+      this.$emit('snap-to-and-open', el)
     }
   }
 };
